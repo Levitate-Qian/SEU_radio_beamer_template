@@ -4,6 +4,8 @@
 % \documentclass[aspectratio=169,handout,draft]{ctexbeamer}
 % \usepackage{pgfpages}
 % \pgfpagesuselayout{4 on 1}[a4paper,border shrink=5mm,landscape]
+% \setbeameroption{show notes}
+
 \usetheme{Warsaw}
 \linespread{1.3}
 \useoutertheme{infolines}
@@ -12,7 +14,7 @@
 
 
 \title{\textbf{东大信息beamer模板（非官方）}}
-% \subtitle{\normalfont \itshape 硕~士~学~位~论~文~答~辩}
+\subtitle{\normalfont \itshape 硕~士~学~位~论~文~答~辩}
 \author[王东南]{答辩人：\textbf{王东南}\hspace*{3pt} \\指导老师：\textbf{王东}~教授}
 \institute[指导老师: 王东~教授]{东南大学　移动通信全国重点实验室\\通信工程（含宽带网络、移动通信等）}
 \date{\today}
@@ -92,12 +94,13 @@ line/.style={-latex}
 \usepackage{fancybox}
 \usepackage{mathrsfs}
 \usepackage{mathtools}
+\usepackage{annotate-equations}
 
 % \definecolor{XDUcolor}{HTML}{b0252a} %西电红
 % \definecolor{XDUcolor}{HTML}{004181} %西电蓝
 \renewcommand{\emph}[1]{{\XWWK \structure{#1}}}
 % \newcommand{\frametitleb}[1]{\frametitle{\bfseries #1}}
-\newcommand{\frametitleb}[1]{\frametitle{\makebox[\framewidth]{\bfseries #1 \hfill\raisebox{-1.5ex}{\includegraphics[height=1cm]{logo.pdf}}}}}
+\newcommand{\frametitleb}[1]{\frametitle{\makebox[\framewidth]{\bfseries #1 \hfill\raisebox{-1.5ex}{\includegraphics[height=1.1\baselineskip]{logo.pdf}}}}}
 % \setbeamertemplate{frametitle}
 % {
 %     \begin{beamercolorbox}[wd=\paperwidth]{frametitle}
@@ -108,7 +111,7 @@ line/.style={-latex}
 % }
 \renewcommand{\thefootnote}{[\arabic{footnote}]}
 \newcommand{\bibart}[1]{{\textsuperscript{\textsuperscript{\color{XDUcolor}#1}}}}
-\newcommand{\figtext}[3]{\begin{minipage}[t]{.6\textwidth}  \vspace{-15pt}#1 \end{minipage}　\begin{minipage}[t]{.35\textwidth}  \begin{exampleblock}{}  \structure{\faArrowCircleLeft}\parbox{.95\textwidth}{\centering #3}  \end{exampleblock} \pause#2\end{minipage}}
+\newcommand{\figtext}[3]{\begin{minipage}[t]{.6\textwidth}  \vspace{-15pt}#1 \end{minipage}　\begin{minipage}[t]{.35\textwidth}  \begin{exampleblock}{}  \raisebox{-1pt}{\structure{\faArrowCircleLeft}}\parbox{.95\textwidth}{\centering #3}  \end{exampleblock} \pause#2\end{minipage}}
 \newcommand{\bs}{\boldsymbol}
 \newcommand{\mb}{\mathbf}
 % \usepackage[ruled,vlined]{algorithm2e}
@@ -123,41 +126,44 @@ line/.style={-latex}
 %     \tableofcontents[currentsection]
 %   \end{frame}
 % }
-% \AtBeginPart[]{
-%     %  \let\insertsectionnumber\relax
-%      \let\partname\relax
-%      \frame{\partpage}
-% }
+
+%% 定义节标题页面
 \AtBeginSection[]{
     %  \let\insertsectionnumber\relax
      \let\sectionname\relax
      \frame{\sectionpage}
 }
-% \setbeamertemplate{section page}
-% {
-%     \begin{centering}
-%         \usebeamerfont{section title} \S \thesection
-
-%     \begin{beamercolorbox}[sep=12pt,center,colsep=-4bp,rounded=true,shadow=true]{part title}
-%     \usebeamerfont{section title}\insertsection\par
-%     \end{beamercolorbox}
-%     \end{centering}
-% }
-% \setbeamertemplate{section page}[default][colsep=-4bp,rounded=true,shadow=\beamer@themerounded@shadow]
-\AtBeginSubsection[]
+\renewcommand{\thesection}{\Roman{section}}
+\setbeamertemplate{section page}
 {
-\begin{frame}[shrink]
+    \begin{centering}
+        {\usebeamerfont{section title} \textsc{Part} \thesection}
 
-    \centering
-        \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+        \vspace{10pt}
+    \begin{beamercolorbox}[sep=12pt,center,colsep=-4bp,rounded=true,shadow=true]{part title}
+    \usebeamerfont{section title}\bfseries\insertsection\par
+    \end{beamercolorbox}
 
- \end{frame}
+    \vspace{20pt}\begin{minipage}
+        {.35\linewidth}
+        \tableofcontents[sectionstyle=hide,subsectionstyle=show/shaded/hide]
+    \end{minipage}
+    
+    \end{centering}
 }
-% Logo only on title page
-% \titlegraphic{
-%     \includegraphics[width=.3\textwidth]{seu_building.jpg}
+
+%% 定义小节标题页面
+% \AtBeginSubsection[]
+% {
+% \begin{frame}[shrink]
+
+%     \centering
+%         \tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+
+% \end{frame}
 % }
 
+%% 标题页样式
 \titlegraphic { 
 \begin{tikzpicture}[overlay,remember picture]
 \node[above left] at (current page.332){
@@ -213,8 +219,8 @@ line/.style={-latex}
 \end{frame}
 
 
-\section{文字}
-
+\section{文字与公式}
+\subsection{文字的相关测试与样例}
 
 \begin{frame}
     \frametitle{文字测试——原始标题样式}
@@ -287,7 +293,7 @@ line/.style={-latex}
 \end{frame}
 
 
-
+\subsection{block的相关测试与样例}
 \begin{frame}
     \frametitleb{三种block环境与一些标记}
 
@@ -309,7 +315,32 @@ line/.style={-latex}
     小图标采用\texttt{fontawesome5}宏包，主要使用箭头\faArrowCircleLeft、\faArrowCircleDown。
 \end{frame}
 
+\subsection{公式的相关测试与样例}
+\begin{frame}
+    \frametitleb{使用\texttt{annotate-equations}宏包为公式添加注释}
 
+    请参考\href{https://github.com/st--/annotate-equations}{annotate-equations}宏包的使用说明。
+    
+    这里使用的颜色在beamercolorthemeSEUcolor.sty中定义。
+
+    两步干扰消除：
+    \begin{equation*}
+        \mathbf Y    =\eqnmarkbox[SEUcolor]{nodeYp}{\sum_{u=1}^U \mathbf H_u  \sqrt{\rho} \, \mathrm{diag}(\mathbf p_u)} + \eqnmarkbox[SEUcolor]{nodeYd}{\sum_{u=1}^U \mathbf H_u \sqrt{1-\rho} \, \mathrm{diag}(\mathbf d_u) } + \mathbf N
+    \end{equation*}
+    \annotate{below,left}{nodeYp}{$\triangleq\mathbf Y_\text{p}$}
+    \annotate{below,right}{nodeYd}{$\triangleq\mathbf Y_\text{d}$}
+
+
+    软符号映射：
+    \begin{equation*}
+        [\hat{\mathbf{d}}]_u = \tikzmarknode{nodeSum}{\sum_{a\in\mathcal{Q}}} \eqnmarkbox[SEUdarkyellow]{nodeA}{a} \cdot \eqnmarkbox[SEUcolor]{nodeProb}{\mathbb{P}\left[[\mathbf{d}]_u = a \,|\, \mathsf{L}_\text{map}^A \right]}
+    \end{equation*}
+    \annotate[yshift=.7em,xshift=1em]{below,right}{nodeSum}{\scriptsize \textit{加权求和}}
+    \annotate[yshift=.5em]{above}{nodeA}{\scriptsize \textit{星座点对应的复值符号}}
+    \annotate{below}{nodeProb}{\scriptsize \textit{根据LLR得到的先验概率}}
+
+    * 该页面目前仅在Mac\TeX{}~2025和Overleaf上测试。
+\end{frame}
 
 \section{图片混排}
 
@@ -330,7 +361,7 @@ line/.style={-latex}
     \end{minipage}　
     \begin{minipage}[m]{.47\textwidth}
     \begin{exampleblock}{}
-    \structure{\faArrowCircleLeft}\parbox{.95\textwidth}{\centering 优化目标}
+    \raisebox{-1pt}{\structure{\faArrowCircleLeft}}\parbox{.95\textwidth}{\centering 优化目标}
     \end{exampleblock} 
     \begin{itemize}
         \item 和速率：$\mathcal{R}=\sum\limits_{i=1}^{M} r_{i}=\sum\limits_{i=1}^{M} B \log \left(1+\Upsilon_{i}\right)$
@@ -358,7 +389,7 @@ line/.style={-latex}
     \end{minipage}　
     \begin{minipage}[m]{.47\textwidth}
     \begin{exampleblock}{}
-    \structure{\faArrowCircleLeft}\parbox{.95\textwidth}{\centering 信道预测的DRL网络}
+    \raisebox{-1pt}{\structure{\faArrowCircleLeft}}\parbox{.95\textwidth}{\centering 信道预测的DRL网络}
     \end{exampleblock} 
     状态：$S_{t}=\left\{\mathbf{Y}_{W}^{t}, \overline{\mathbf{H}}_{W}^{t}, \mathbf{s}, \mathbf{H}_{p}^{t}\right\}$
     \begin{itemize}
@@ -415,7 +446,7 @@ line/.style={-latex}
     \begin{overprint}
         \onslide<2>
         \begin{exampleblock}{}
-            \structure{\faArrowCircleLeft}\parbox{.95\textwidth}{\centering LSIC${}_{i}^{(t)}$块输入}
+            \raisebox{-1pt}{\structure{\faArrowCircleLeft}}\parbox{.95\textwidth}{\centering LSIC${}_{i}^{(t)}$块输入}
             \end{exampleblock} 
             \begin{itemize}
                 \item {上轮迭代估计信号}：$\hat{\mathbf x}_{d,i}^{(t-1)}$
@@ -426,7 +457,7 @@ line/.style={-latex}
             \end{itemize}
         \onslide<3>
         \begin{exampleblock}{}
-            \structure{\faArrowCircleLeft}\parbox{.95\textwidth}{\centering TPG-U}
+            \raisebox{-1pt}{\structure{\faArrowCircleLeft}}\parbox{.95\textwidth}{\centering TPG-U}
             \end{exampleblock} 
             \begin{itemize}
                 \item \emph{梯度下降}\\
@@ -448,7 +479,7 @@ line/.style={-latex}
 
     \vspace{-15pt}\begin{minipage}[t]{.47\textwidth}
         \begin{exampleblock}{}
-            \structure{\faArrowCircleDown}\parbox{.95\textwidth}{\centering DetNet的单层结构}
+            \raisebox{-1pt}{\structure{\faArrowCircleDown}}\parbox{.95\textwidth}{\centering DetNet的单层结构}
             \end{exampleblock} 
         通过ML检测的梯度下降投影形式
         \[\hat{x}_{k+1}=\prod\left[\hat x_k+\delta_kH^Hy+\delta_kH^H\hat x_k\right]\]
@@ -458,7 +489,7 @@ line/.style={-latex}
     \end{minipage}　
     \begin{minipage}[t]{.47\textwidth}
     \begin{exampleblock}{}
-    \structure{\faArrowCircleDown}\parbox{.95\textwidth}{\centering DetNet的软输出改造（？）}
+        \raisebox{-1pt}{\structure{\faArrowCircleDown}}\parbox{.95\textwidth}{\centering DetNet的软输出改造（？）}
     \end{exampleblock} 
     \[\begin{aligned}
         \operatorname{LLR}(\widehat{x}) =&\ln \frac{P\left(b_{i}=1 \mid \widehat{x}\right)}{P\left(b_{i}=0 \mid \widehat{x}\right)} \\
